@@ -8,7 +8,7 @@ import (
 
 	"github.com/google/go-github/github"
 	"golang.org/x/oauth2"
-	authentication "k8s.io/client-go/pkg/apis/authentication/v1beta1"
+	authentication "k8s.io/api/authentication/v1"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 			log.Println("[Error]", err.Error())
 			w.WriteHeader(http.StatusBadRequest)
 			json.NewEncoder(w).Encode(map[string]interface{}{
-				"apiVersion": "authentication.k8s.io/v1beta1",
+				"apiVersion": "authentication.k8s.io/v1",
 				"kind":       "TokenReview",
 				"status": authentication.TokenReviewStatus{
 					Authenticated: false,
@@ -40,7 +40,7 @@ func main() {
 			log.Println("[Error]", err.Error())
 			w.WriteHeader(http.StatusUnauthorized)
 			json.NewEncoder(w).Encode(map[string]interface{}{
-				"apiVersion": "authentication.k8s.io/v1beta1",
+				"apiVersion": "authentication.k8s.io/v1",
 				"kind":       "TokenReview",
 				"status": authentication.TokenReviewStatus{
 					Authenticated: false,
@@ -59,7 +59,7 @@ func main() {
 			},
 		}
 		json.NewEncoder(w).Encode(map[string]interface{}{
-			"apiVersion": "authentication.k8s.io/v1beta1",
+			"apiVersion": "authentication.k8s.io/v1",
 			"kind":       "TokenReview",
 			"status":     trs,
 		})

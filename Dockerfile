@@ -1,7 +1,15 @@
-FROM alpine:3.4
+FROM golang:1.20-alpine
 
-RUN apk --no-cache --update add ca-certificates
+WORKDIR /app
 
-COPY _output/main /boot
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
 
-CMD ["/boot"]
+COPY *.go ./
+
+RUN go build -o output/main main.go
+
+EXPOSE 3000
+
+CMD [ "./output/main" ]
