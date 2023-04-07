@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+	log.Println("Starting github-authn")
 	http.HandleFunc("/authenticate", func(w http.ResponseWriter, r *http.Request) {
 		decoder := json.NewDecoder(r.Body)
 		var tr authentication.TokenReview
